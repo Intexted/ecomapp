@@ -1,9 +1,12 @@
 import Head from 'next/head';
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
+import { Store } from '../utils/Store';
 import Footer from './Footer';
 import Header from './Header';
 
 function Layout({ title, children }) {
+  const { state } = useContext(Store);
+  const { cart } = state;
   return (
     <Fragment>
       <Head>
@@ -32,7 +35,7 @@ function Layout({ title, children }) {
         {/* <meta property="og:image" content="/static/homepage.jpeg" /> */}
       </Head>
       <div className="flex flex-col justify-between min-h-screen">
-        <Header />
+        <Header cart={cart} />
         <main className="container m-auto mt-4 px-4">{children}</main>
         <Footer />
       </div>
