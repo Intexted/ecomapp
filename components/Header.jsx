@@ -26,7 +26,7 @@ function Header({ cart, dispatch }) {
     >
       <nav className="flex items-center px-4 justify-between h-12 shadow-md  ">
         <Link href="/" legacyBehavior>
-          <a className="text-lg font-bold">Ecomapp</a>
+          <a className="text-xl font-bold text-blue-600">Ecomapp</a>
         </Link>
         <div className="flex items-center gap-5 px-5 ">
           <div className="flex items-center">
