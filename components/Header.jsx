@@ -1,11 +1,24 @@
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { Menu } from '@headlessui/react';
+import DropdownLink from './DropdownLink';
+import Cookies from 'js-cookie';
 
-function Header({ cart }) {
+function Header({ cart, dispatch }) {
+  const { status, data: session } = useSession();
   const [cartItemsCount, setCartItemsCount] = useState(0);
+
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
+
+  const logoutClickHandler = () => {
+    Cookies.remove('cart');
+    dispatch({ type: 'CART_RESET' });
+    signOut({ callbackUrl: '/' });
+  };
+
   return (
     <header
       className="sticky top-0 bg-[#ffffffcc]"
@@ -40,24 +53,59 @@ function Header({ cart }) {
               </a>
             </Link>
           </div>
-          <div className="flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
-                clipRule="evenodd"
-              />
-            </svg>
 
-            <Link href="/login" legacyBehavior>
-              <a className="p-1 font-semibold">Login</a>
+          {status === 'loading' ? (
+            'Loading'
+          ) : session?.user ? (
+            // <h1 className="font-bold text-lg cursor-pointer text-blue-500">
+            //   {session.user.name}
+            // </h1>
+            <Menu as="div" className="relative inline-block">
+              <Menu.Button className="font-bold text-lg cursor-pointer text-blue-600">
+                {session.user.name}
+              </Menu.Button>
+              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white border-2  shadow-lg ">
+                <Menu.Item>
+                  <DropdownLink className="dropdown-link" href="/profile">
+                    Profile
+                  </DropdownLink>
+                </Menu.Item>
+                <Menu.Item>
+                  <DropdownLink className="dropdown-link" href="/order-history">
+                    Order History
+                  </DropdownLink>
+                </Menu.Item>
+                <Menu.Item>
+                  <a
+                    className="dropdown-link"
+                    href="#"
+                    onClick={logoutClickHandler}
+                  >
+                    Logout
+                  </a>
+                </Menu.Item>
+              </Menu.Items>
+            </Menu>
+          ) : (
+            <Link href="/login">
+              <div className="flex items-center cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+
+                <a className="p-1 font-semibold">Login</a>
+              </div>
             </Link>
-          </div>
+          )}
         </div>
       </nav>
     </header>

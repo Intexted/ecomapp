@@ -25,7 +25,10 @@ function CartScreen() {
       <h1 className="mb-4 text-xl font-semibold">Shopping Cart</h1>
       {cartItems.length === 0 ? (
         <div>
-          Cart is empty. <Link href="/">Go shopping</Link>
+          Cart is empty.{' '}
+          <Link href="/">
+            <span className="font-medium text-blue-600">Go shopping</span>
+          </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
@@ -33,10 +36,10 @@ function CartScreen() {
             <table className="min-w-full ">
               <thead className="border-b">
                 <tr>
-                  <th className="p-5 text-left">Item</th>
-                  <th className="p-5 text-right">Quantity</th>
-                  <th className="p-5 text-right">Price</th>
-                  <th className="p-5">Remove</th>
+                  <th className="p-5 text-gray-600 text-left">Item</th>
+                  <th className="p-5 text-gray-600 text-right">Quantity</th>
+                  <th className="p-5 text-gray-600 text-right">Price</th>
+                  <th className="p-5 text-gray-600">Remove</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,7 +82,7 @@ function CartScreen() {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="w-6 h-6"
+                          className="w-6 h-6 text-red-500"
                         >
                           <path
                             fillRule="evenodd"
