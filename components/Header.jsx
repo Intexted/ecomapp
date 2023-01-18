@@ -7,8 +7,11 @@ function Header({ cart }) {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
   return (
-    <header>
-      <nav className="flex items-center px-4 justify-between h-12 shadow-md ">
+    <header
+      className="sticky top-0 bg-[#ffffffcc]"
+      style={{ backdropFilter: 'saturate(180%) blur(5px)' }}
+    >
+      <nav className="flex items-center px-4 justify-between h-12 shadow-md  ">
         <Link href="/" legacyBehavior>
           <a className="text-lg font-bold">Ecomapp</a>
         </Link>

@@ -22,7 +22,7 @@ function CartScreen() {
   };
   return (
     <Layout title="Shopping Cart">
-      <h1 className="mb-4 text-xl">Shopping Cart</h1>
+      <h1 className="mb-4 text-xl font-semibold">Shopping Cart</h1>
       {cartItems.length === 0 ? (
         <div>
           Cart is empty. <Link href="/">Go shopping</Link>
@@ -51,8 +51,10 @@ function CartScreen() {
                             width={50}
                             height={50}
                           ></Image>
-                          &nbsp;
-                          {item.name}
+
+                          <span className="mx-2 font-semibold">
+                            {item.name}
+                          </span>
                         </a>
                       </Link>
                     </td>
@@ -94,7 +96,7 @@ function CartScreen() {
               </tbody>
             </table>
           </div>
-          <div className="card p-5">
+          <div className="card p-5 h-[130px] mt-5 md:mt-0">
             <ul>
               <li>
                 <div className="pb-3 text-xl">
@@ -104,8 +106,8 @@ function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('/shipping')}
-                  className="primary-button w-full"
+                  onClick={() => router.push('login?redirect=/shipping')}
+                  className="primary-button w-full font-semibold"
                 >
                   Check Out
                 </button>
