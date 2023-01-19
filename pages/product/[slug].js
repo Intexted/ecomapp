@@ -46,7 +46,7 @@ export default function ProductScreen() {
           ></Image>
         </div>
         <div>
-          <ul>
+          <ul className="mt-4 md:mt-0">
             <li className="mb-2">
               <h1 className="text-lg font-bold">{product.name}</h1>
             </li>
@@ -87,7 +87,7 @@ export default function ProductScreen() {
         </div>
       </div>
       <Link href="/">
-        <div className="py-10 flex items-center gap-2 justify-center font-semibold">
+        <div className="py-5 md:py-10 flex items-center gap-2 justify-center font-semibold">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

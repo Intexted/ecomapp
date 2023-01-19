@@ -66,19 +66,19 @@ function Header({ cart, dispatch }) {
               </Menu.Button>
               <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white border-2  shadow-lg ">
                 <Menu.Item>
-                  <DropdownLink className="dropdown-link" href="/profile">
+                  <DropdownLink className="dropdown-link" link="/profile">
                     Profile
                   </DropdownLink>
                 </Menu.Item>
                 <Menu.Item>
-                  <DropdownLink className="dropdown-link" href="/order-history">
+                  <DropdownLink className="dropdown-link" link="/order-history">
                     Order History
                   </DropdownLink>
                 </Menu.Item>
                 <Menu.Item>
                   <a
                     className="dropdown-link"
-                    href="#"
+                    link="#"
                     onClick={logoutClickHandler}
                   >
                     Logout
