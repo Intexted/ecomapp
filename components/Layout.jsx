@@ -27,7 +27,9 @@ function Layout({ title, children }) {
       <ToastContainer limit={1} />
       <div className="flex flex-col justify-between min-h-screen">
         <Header cart={cart} dispatch={dispatch} />
-        <main className="container m-auto mt-10 px-14">{children}</main>
+        <main className="container m-auto mt-4 md:mt-10 px-4 md:px-14">
+          {children}
+        </main>
         <Footer />
       </div>
     </Fragment>
