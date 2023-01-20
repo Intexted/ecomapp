@@ -1,6 +1,6 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Menu } from '@headlessui/react';
 import DropdownLink from './DropdownLink';
 import Cookies from 'js-cookie';
@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 function Header({ cart, dispatch }) {
   const { status, data: session } = useSession();
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const searchInputRef = useRef();
 
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
@@ -19,16 +20,67 @@ function Header({ cart, dispatch }) {
     signOut({ callbackUrl: '/' });
   };
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (!searchInputRef.current.value) {
+      return;
+    }
+
+    console.log(searchInputRef.current.value);
+    // router.push(`/search/${searchInputRef.current.value}`);
+    // setSearchOpen(false);
+  };
+
   return (
     <header
       className="sticky top-0 bg-[#ffffffcc]"
       style={{ backdropFilter: 'saturate(180%) blur(5px)' }}
     >
-      <nav className="flex items-center px-4 justify-between h-12 shadow-md  ">
+      <nav className="flex items-center px-4 justify-between h-14 shadow-md  ">
         <Link href="/" legacyBehavior>
-          <a className="text-xl font-bold text-blue-600">Ecomapp</a>
+          <div className="flex items-center gap-1 cursor-pointer">
+            <img
+              src="https://www.svgrepo.com/show/444859/shopping-cart.svg"
+              width={30}
+              alt=""
+            />
+            <a className="text-xl font-bold text-blue-900">Ecomapp</a>
+          </div>
         </Link>
-        <div className="flex items-center gap-5 px-5 ">
+        <div className="md:flex items-center hidden">
+          <form
+            onSubmit={(e) => handleSearch(e)}
+            className="flex shadow-lg space-x-1 items-center 
+            border rounded-[50px]  justify-between relative overflow-hidden bg-white"
+          >
+            <input
+              type="text"
+              placeholder="Search Here ..."
+              className="p-3 pl-5 h-7 w-48 border-0 focus:ring-0 dark:text-[#121212] text-sm rounded-lg bg-white"
+              ref={searchInputRef}
+            />
+            <button
+              onClick={(e) => handleSearch(e)}
+              className="bg-amber-300 border rounded-full h-7 w-7 flex items-center justify-center btn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4   cursor-pointer  "
+                fill="none"
+                viewBox="0 0 20 20"
+                stroke="#000"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <div className="flex items-center gap-5 px-0 md:px-5 ">
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
