@@ -1,44 +1,40 @@
-import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import Layout from '../components/Layout';
-import { getError } from '../utils/error';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { getError } from '../utils/error';
 import axios from 'axios';
+import Layout from '../components/Layout';
 
-export default function LoginScreen() {
+export default function ProfileScreen() {
   const { data: session } = useSession();
-
-  const router = useRouter();
-  const { redirect } = router.query;
-
-  useEffect(() => {
-    if (session?.user) {
-      router.push(redirect || '/');
-    }
-  }, [router, session, redirect]);
 
   const {
     handleSubmit,
     register,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    setValue('name', session.user.name);
+    setValue('email', session.user.email);
+  }, [session.user, setValue]);
+
   const submitHandler = async ({ name, email, password }) => {
     try {
-      await axios.post('/api/auth/signup', {
+      await axios.put('/api/auth/update', {
         name,
         email,
         password,
       });
-
       const result = await signIn('credentials', {
         redirect: false,
         email,
         password,
       });
+      toast.success('Profile updated successfully');
       if (result.error) {
         toast.error(result.error);
       }
@@ -46,14 +42,16 @@ export default function LoginScreen() {
       toast.error(getError(err));
     }
   };
+
   return (
-    <Layout title="Create Account">
+    <Layout title="Profile">
       <form
-        className="mx-auto max-w-screen-md "
+        className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl font-semibold">Create Account</h1>
-        <div className="mb-4 text-left">
+        <h1 className="mb-4 text-xl font-semibold">Update Profile</h1>
+
+        <div className="mb-4">
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -69,10 +67,12 @@ export default function LoginScreen() {
           )}
         </div>
 
-        <div className="mb-4 text-left">
+        <div className="mb-4">
           <label htmlFor="email">Email</label>
           <input
             type="email"
+            className="w-full mt-1"
+            id="email"
             {...register('email', {
               required: 'Please enter email',
               pattern: {
@@ -80,36 +80,34 @@ export default function LoginScreen() {
                 message: 'Please enter valid email',
               },
             })}
-            className="w-full mt-1"
-            id="email"
-          ></input>
+          />
           {errors.email && (
             <div className="text-red-500">{errors.email.message}</div>
           )}
         </div>
-        <div className="mb-4 text-left">
+
+        <div className="mb-4">
           <label htmlFor="password">Password</label>
           <input
+            className="w-full mt-1"
             type="password"
+            id="password"
             {...register('password', {
-              required: 'Please enter password',
               minLength: { value: 6, message: 'password is more than 5 chars' },
             })}
-            className="w-full mt-1"
-            id="password"
-          ></input>
+          />
           {errors.password && (
             <div className="text-red-500 ">{errors.password.message}</div>
           )}
         </div>
-        <div className="mb-4 text-left">
+
+        <div className="mb-4">
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             className="w-full mt-1"
             type="password"
             id="confirmPassword"
             {...register('confirmPassword', {
-              required: 'Please enter confirm password',
               validate: (value) => value === getValues('password'),
               minLength: {
                 value: 6,
@@ -127,19 +125,14 @@ export default function LoginScreen() {
               <div className="text-red-500 ">Password do not match</div>
             )}
         </div>
-
         <div className="mb-4 text-center">
-          <button className="primary-button w-1/2 m-auto font-semibold">
-            Register
+          <button className="primary-button w-1/2 mx-auto font-semibold">
+            Update Profile
           </button>
-        </div>
-        <div className="mb-4 text-center">
-          already have an account? &nbsp;
-          <Link href={`/login`}>
-            <span className="text-blue-600">Login</span>{' '}
-          </Link>
         </div>
       </form>
     </Layout>
   );
 }
+
+ProfileScreen.auth = true;

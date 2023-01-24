@@ -46,7 +46,7 @@ export default function LoginScreen() {
   return (
     <Layout title="Login">
       <form
-        className="mx-auto max-w-screen-md  text-center"
+        className="mx-auto max-w-screen-md  "
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl font-semibold">Login</h1>
@@ -89,12 +89,12 @@ export default function LoginScreen() {
             <div className="text-red-500 ">{errors.password.message}</div>
           )}
         </div>
-        <div className="mb-4 ">
+        <div className="mb-4 text-center">
           <button className="primary-button w-1/2 m-auto font-semibold">
             Login
           </button>
         </div>
-        <div className="mb-4">
+        <div className="mb-4 text-center">
           Don&apos;t have an account?
           <Link href={`/register?redirect=${redirect || '/'}`}>
             {' '}
