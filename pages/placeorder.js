@@ -68,7 +68,10 @@ export default function PlaceOrderScreen() {
       <h1 className="mb-4 text-xl font-semibold">Place Order</h1>
       {cartItems.length === 0 ? (
         <div>
-          Cart is empty. <Link href="/">Go shopping</Link>
+          Cart is empty.{' '}
+          <Link href="/">
+            <span className="font-medium text-blue-600">Go shopping</span>
+          </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">

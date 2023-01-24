@@ -46,12 +46,12 @@ export default function LoginScreen() {
   return (
     <Layout title="Login">
       <form
-        className="mx-auto max-w-screen-md py-10 text-center"
+        className="mx-auto max-w-screen-md  text-center"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-xl font-semibold">Login</h1>
-        <div className="mb-4 flex flex-col">
-          {/* <label htmlFor="email">Email</label> */}
+        <div className="mb-4 flex flex-col text-left">
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             placeholder="Email"
@@ -62,7 +62,7 @@ export default function LoginScreen() {
                 message: 'Please enter valid email ..',
               },
             })}
-            className="w-full md:w-1/2 m-auto border-2 h-10 mt-1 p-2"
+            className="w-full border-2 h-10 mt-1 p-2"
             id="email"
             autoFocus
           ></input>
@@ -70,11 +70,10 @@ export default function LoginScreen() {
             <div className="text-red-500 ">{errors.email.message}</div>
           )}
         </div>
-        <div className="mb-4 flex flex-col">
-          {/* <label htmlFor="password">Password</label> */}
+        <div className="mb-4 flex flex-col text-left">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            placeholder="Password"
             {...register('password', {
               required: 'Please enter password ..',
               minLength: {
@@ -82,7 +81,7 @@ export default function LoginScreen() {
                 message: 'password is more than 5 chars ..',
               },
             })}
-            className="w-full md:w-1/2 m-auto border-2 h-10 mt-1 p-2"
+            className="w-full border-2 h-10 mt-1 p-2"
             id="password"
             autoFocus
           ></input>
@@ -91,13 +90,14 @@ export default function LoginScreen() {
           )}
         </div>
         <div className="mb-4 ">
-          <button className="primary-button w-full md:w-1/3 m-auto font-semibold">
+          <button className="primary-button w-1/2 m-auto font-semibold">
             Login
           </button>
         </div>
         <div className="mb-4">
           Don&apos;t have an account?
-          <Link href="/register">
+          <Link href={`/register?redirect=${redirect || '/'}`}>
+            {' '}
             <span className="text-blue-600"> Register</span>{' '}
           </Link>
         </div>

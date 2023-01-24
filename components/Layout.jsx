@@ -24,7 +24,7 @@ function Layout({ title, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* <meta property="og:image" content="/static/homepage.jpeg" /> */}
       </Head>
-      <ToastContainer limit={1} />
+      <ToastContainer limit={1} position="bottom-center" />
       <div className="flex flex-col justify-between min-h-screen">
         <Header cart={cart} dispatch={dispatch} />
         <main className="container m-auto mt-4 md:mt-10 px-4 md:px-14">
