@@ -1,11 +1,14 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Menu } from '@headlessui/react';
 import DropdownLink from './DropdownLink';
 import Cookies from 'js-cookie';
+import { Store } from '../utils/Store';
 
-function Header({ cart, dispatch }) {
+function Header() {
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
   const { status, data: session } = useSession();
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const searchInputRef = useRef();
@@ -127,6 +130,16 @@ function Header({ cart, dispatch }) {
                     Order History
                   </DropdownLink>
                 </Menu.Item>
+                {session.user.isAdmin && (
+                  <Menu.Item>
+                    <DropdownLink
+                      className="dropdown-link"
+                      link="/admin/dashboard"
+                    >
+                      Admin Dashboard
+                    </DropdownLink>
+                  </Menu.Item>
+                )}
                 <Menu.Item>
                   <a
                     className="dropdown-link"

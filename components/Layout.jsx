@@ -1,14 +1,11 @@
 import Head from 'next/head';
-import React, { Fragment, useContext } from 'react';
-import { Store } from '../utils/Store';
+import React, { Fragment } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Layout({ title, children }) {
-  const { state, dispatch } = useContext(Store);
-  const { cart } = state;
   return (
     <Fragment>
       <Head>
@@ -26,8 +23,8 @@ function Layout({ title, children }) {
       </Head>
       <ToastContainer limit={1} position="bottom-center" />
       <div className="flex flex-col justify-between min-h-screen">
-        <Header cart={cart} dispatch={dispatch} />
-        <main className="container m-auto mt-4 md:mt-10 px-4 md:px-14">
+        <Header />
+        <main className="container m-auto mt-4 md:mt-10  md:px-0">
           {children}
         </main>
         <Footer />
