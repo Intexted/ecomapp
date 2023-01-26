@@ -1,55 +1,27 @@
+import Header from '@/components/Header';
 import axios from 'axios';
 import Link from 'next/link';
-import { Bar } from 'react-chartjs-2';
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import React, { useEffect, useReducer } from 'react';
 // import Layout from '../../components/Layout';
 import { getError } from '../../utils/error';
-import Header from '@/components/Header';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-  },
-};
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true, error: '' };
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, summary: action.payload, error: '' };
+      return { ...state, loading: false, orders: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       state;
   }
 }
-function AdminDashboardScreen() {
-  const [{ loading, error, summary }, dispatch] = useReducer(reducer, {
+
+export default function AdminOrderScreen() {
+  const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
-    summary: { salesData: [] },
+    orders: [],
     error: '',
   });
 
@@ -57,26 +29,15 @@ function AdminDashboardScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/admin/summary`);
+        const { data } = await axios.get(`/api/admin/orders`);
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
-
     fetchData();
   }, []);
 
-  const data = {
-    labels: summary.salesData.map((x) => x._id), // 2022/01 2022/03
-    datasets: [
-      {
-        label: 'Sales',
-        backgroundColor: 'rgba(162, 222, 208, 1)',
-        data: summary.salesData.map((x) => x.totalSales),
-      },
-    ],
-  };
   return (
     // <Layout title="Admin Dashboard">
     <>
@@ -86,7 +47,7 @@ function AdminDashboardScreen() {
           <ul className="">
             <li>
               <Link href="/admin/dashboard">
-                <div className="flex items-center hover: gap-2 mb-3 bg-slate-400 py-3 px-10 rounded-md">
+                <div className="flex items-center gap-2 mb-3 hover:bg-slate-100 py-3 px-10 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -108,7 +69,7 @@ function AdminDashboardScreen() {
             </li>
             <li>
               <Link href="/admin/orders">
-                <div className="flex items-center hover:bg-slate-100 py-3 px-10 rounded-md gap-2 mb-3">
+                <div className="flex items-center  bg-slate-400 py-3 px-10 rounded-md gap-2 mb-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -174,63 +135,60 @@ function AdminDashboardScreen() {
           </ul>
         </div>
         <div className="pb-5 md:p-5 md:w-4/5">
-          {/* <h1 className="mb-4 text-xl font-semibold">Admin Dashboard</h1> */}
+          <h1 className="mb-2 text-xl font-semibold">Admin Orders</h1>
+
           {loading ? (
             <div className="p-5 font-semibold">Loading...</div>
           ) : error ? (
             <div className="alert-error">{error}</div>
           ) : (
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-4">
-                <Link href="/admin/orders">
-                  <div className="card text-center m-5 p-5 hover:shadow-xl shadow-md">
-                    <p className="text-2xl text-gray-800">
-                      ${summary.ordersPrice}{' '}
-                    </p>
-                    <p>Sales</p>
-                    <h1 className="text-blue-500 font-semibold">View sales</h1>
-                  </div>
-                </Link>
-                <Link href="/admin/orders">
-                  <div className="card text-center m-5 p-5 hover:shadow-xl shadow-md">
-                    <p className="text-2xl text-gray-800">
-                      {summary.ordersCount}{' '}
-                    </p>
-                    <p>Orders</p>
-                    <h1 className="text-blue-500 font-semibold">View orders</h1>
-                  </div>
-                </Link>
-                <Link href="/admin/products">
-                  <div className="card text-center m-5 p-5 hover:shadow-xl shadow-md">
-                    <p className="text-2xl text-gray-800">
-                      {summary.productsCount}{' '}
-                    </p>
-                    <p>Products</p>
-                    <h1 className="text-blue-500 font-semibold">
-                      View products
-                    </h1>
-                  </div>
-                </Link>
-                <Link href="/admin/users">
-                  <div className="card text-center m-5 p-5 hover:shadow-xl shadow-md">
-                    <p className="text-2xl text-gray-800">
-                      {summary.usersCount}{' '}
-                    </p>
-                    <p>Users</p>
-                    <h1 className="text-blue-500 font-semibold">View users</h1>
-                  </div>
-                </Link>
-              </div>
-              <div className="shadow-md border p-5 mx-5 rounded-lg hover:shadow-lg">
-                <h2 className="text-xl">Sales Report</h2>
-                <Bar
-                  options={{
-                    legend: { display: true, position: 'right' },
-                  }}
-                  data={data}
-                />
-              </div>
-              {/* <h2 className="text-xl">Popular Selling Product</h2> */}
+            <div className="overflow-x-auto">
+              <table className="min-w-full overflow-x-auto">
+                <thead className="border-b">
+                  <tr>
+                    <th className="px-5 text-left text-gray-700">ID</th>
+                    <th className="p-5 text-left text-gray-700">USER</th>
+                    <th className="p-5 text-left text-gray-700">DATE</th>
+                    <th className="p-5 text-left text-gray-700">TOTAL</th>
+                    <th className="p-5 text-left text-gray-700">PAID</th>
+                    <th className="p-5 text-left text-gray-700">DELIVERED</th>
+                    <th className="p-5 text-left text-gray-700"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order._id} className="border-b">
+                      <td className="p-5">{order._id.substring(20, 24)}</td>
+                      <td className="p-5 font-medium">
+                        {order.user ? order.user.name : 'DELETED USER'}
+                      </td>
+                      <td className="p-5">
+                        {order.createdAt.substring(0, 10)}
+                      </td>
+                      <td className="p-5 font-medium">${order.totalPrice}</td>
+                      <td className="p-5">
+                        {order.isPaid
+                          ? `${order.paidAt.substring(0, 10)}`
+                          : 'not paid'}
+                      </td>
+                      <td className="p-5">
+                        {order.isDelivered
+                          ? `${order.deliveredAt.substring(0, 10)}`
+                          : 'not delivered'}
+                      </td>
+                      <td className="p-5">
+                        <Link
+                          href={`/order/${order._id}`}
+                          passHref
+                          legacyBehavior
+                        >
+                          <a className="text-blue-500 font-semibold">Details</a>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
@@ -240,5 +198,4 @@ function AdminDashboardScreen() {
   );
 }
 
-AdminDashboardScreen.auth = { adminOnly: true };
-export default AdminDashboardScreen;
+AdminOrderScreen.auth = { adminOnly: true };
