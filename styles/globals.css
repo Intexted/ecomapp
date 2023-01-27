@@ -48,3 +48,8 @@ textarea {
 .alert-success {
   @apply my-3 rounded-lg bg-green-100 p-3 text-green-700;
 }
+
+.sb_bg {
+  background: transparent linear-gradient(120deg, #0d253f, #1a3691) 0 0
+    no-repeat padding-box;
+}

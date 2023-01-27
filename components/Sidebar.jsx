@@ -6,19 +6,22 @@ function Sidebar() {
   const router = useRouter();
 
   return (
-    <div className="hidden bg-[#0d253f] rounded-xl ml-1 mt-2 py-5 md:py-10 md:flex justify-center w-full md:w-1/5 md:border-r-2 md:h-screen">
+    <div
+      className="hidden sb_bg rounded-xl ml-1 mt-5 py-5
+    md:py-7 md:flex justify-center w-full md:w-1/5 md:border-r-2 md:h-[90vh]"
+    >
       <ul className="">
         <li>
           <Link href="/admin/dashboard">
             <div
               className={`flex items-center 
-            hover: gap-2 mb-3 ${
-              router.asPath.includes('dashboard')
-                ? 'bg-white'
-                : 'hover:bg-[#eee2]'
-            } 
+             gap-2 mb-3 ${
+               router.asPath.includes('dashboard')
+                 ? 'bg-white'
+                 : 'hover:bg-[#eee2]'
+             } 
             
-            py-3 px-10 rounded-md`}
+            py-2 px-8 rounded-md`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +29,7 @@ function Sidebar() {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className={`w-6 h-6 ${
+                className={`w-7 h-7 ${
                   !router.asPath.includes('dashboard')
                     ? ' text-[#ebf0f7]'
                     : 'text-[#0d253f]'
@@ -58,7 +61,7 @@ function Sidebar() {
                 router.asPath.includes('orders')
                   ? 'bg-white'
                   : 'hover:bg-[#eee2]'
-              }  py-3 px-10 rounded-md gap-2 mb-3`}
+              }  py-2 px-8 rounded-md gap-2 mb-3`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +69,7 @@ function Sidebar() {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className={`w-6 h-6 ${
+                className={`w-7 h-7 ${
                   !router.asPath.includes('orders')
                     ? ' text-[#ebf0f7]'
                     : 'text-[#0d253f]'
@@ -97,7 +100,7 @@ function Sidebar() {
                 router.asPath.includes('products')
                   ? 'bg-white'
                   : 'hover:bg-[#eee2]'
-              }  py-3 px-10 rounded-md gap-2 mb-3`}
+              }  py-2 px-8  rounded-md gap-2 mb-3`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +108,7 @@ function Sidebar() {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="#ebf0f7"
-                className={`w-6 h-6 ${
+                className={`w-7 h-7 ${
                   !router.asPath.includes('products')
                     ? ' text-[#ebf0f7]'
                     : 'text-[#0d253f]'
@@ -137,7 +140,7 @@ function Sidebar() {
                 router.asPath.includes('users')
                   ? 'bg-white'
                   : 'hover:bg-[#eee2]'
-              }  py-3 px-10 rounded-md gap-2 mb-3`}
+              }  py-2 px-8  rounded-md gap-2 mb-3`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +148,7 @@ function Sidebar() {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="#ebf0f7"
-                className={`w-6 h-6 ${
+                className={`w-7 h-7 ${
                   !router.asPath.includes('users')
                     ? ' text-[#ebf0f7]'
                     : 'text-[#0d253f]'
