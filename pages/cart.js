@@ -35,9 +35,9 @@ function CartScreen() {
   };
   return (
     <Layout title="Shopping Cart">
-      <h1 className="mb-4 text-xl font-semibold">Shopping Cart</h1>
+      <h1 className="mb-4 ml-2 text-xl p-2 font-semibold">Shopping Cart</h1>
       {cartItems.length === 0 ? (
-        <div>
+        <div className="p-2 ml-4">
           Cart is empty.{' '}
           <Link href="/">
             <span className="font-medium text-blue-600">Go shopping</span>
