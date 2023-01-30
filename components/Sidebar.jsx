@@ -107,7 +107,7 @@ function Sidebar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
-                stroke="#ebf0f7"
+                stroke="currentColor"
                 className={`w-7 h-7 ${
                   !router.asPath.includes('products')
                     ? ' text-[#ebf0f7]'
@@ -147,7 +147,7 @@ function Sidebar() {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
-                stroke="#ebf0f7"
+                stroke="currentColor"
                 className={`w-7 h-7 ${
                   !router.asPath.includes('users')
                     ? ' text-[#ebf0f7]'
