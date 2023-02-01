@@ -1,5 +1,6 @@
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios';
+import moment from 'moment';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -187,7 +188,10 @@ function OrderScreen() {
                 {shippingAddress.country}
               </div>
               {isDelivered ? (
-                <div className="alert-success">Delivered at {deliveredAt}</div>
+                <div className="alert-success">
+                  Delivered at{' '}
+                  {moment(deliveredAt).format('HH:mm - DD-MM-YYYY')}
+                </div>
               ) : (
                 <div className="alert-error">Not delivered</div>
               )}
@@ -197,7 +201,9 @@ function OrderScreen() {
               <h2 className="mb-2 text-lg">Payment Method</h2>
               <div>{paymentMethod}</div>
               {isPaid ? (
-                <div className="alert-success">Paid at {paidAt}</div>
+                <div className="alert-success">
+                  Paid at {moment(paidAt).format('HH:mm - DD-MM-YYYY')}
+                </div>
               ) : (
                 <div className="alert-error">Not paid</div>
               )}
