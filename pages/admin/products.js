@@ -46,19 +46,19 @@ export default function AdminProductsScreen() {
   });
 
   const createHandler = async () => {
-    if (!window.confirm('Are you sure?')) {
-      return;
-    }
-    try {
-      dispatch({ type: 'CREATE_REQUEST' });
-      const { data } = await axios.post(`/api/admin/products`);
-      dispatch({ type: 'CREATE_SUCCESS' });
-      toast.success('Product created successfully');
-      router.push(`/admin/product/${data.product._id}`);
-    } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
-      toast.error(getError(err));
-    }
+    // if (!window.confirm('Are you sure?')) {
+    //   return;
+    // }
+    // try {
+    //   dispatch({ type: 'CREATE_REQUEST' });
+    //   const { data } = await axios.post(`/api/admin/products`);
+    //   dispatch({ type: 'CREATE_SUCCESS' });
+    //   toast.success('Product created successfully');
+    // } catch (err) {
+    //   dispatch({ type: 'CREATE_FAIL' });
+    //   toast.error(getError(err));
+    // }
+    router.push(`/admin/product`);
   };
 
   useEffect(() => {
@@ -120,14 +120,14 @@ export default function AdminProductsScreen() {
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr>
-                    <th className="px-5 text-left">ID</th>
-                    <th className="p-5 text-left">NAME</th>
-                    <th className="p-5 text-left">PRICE</th>
-                    <th className="p-5 text-left">CATEGORY</th>
-                    <th className="p-5 text-left">COUNT</th>
-                    <th className="p-5 text-left">RATING</th>
-                    <th className="p-5 text-left">EDIT</th>
-                    <th className="p-5 text-left">DELETE</th>
+                    <th className="px-5 text-left font-medium ">ID</th>
+                    <th className="p-5 text-left font-medium ">NAME</th>
+                    <th className="p-5 text-left font-medium ">PRICE</th>
+                    <th className="p-5 text-left font-medium ">CATEGORY</th>
+                    <th className="p-5 text-left font-medium ">COUNT</th>
+                    <th className="p-5 text-left font-medium ">RATING</th>
+                    <th className="p-5 text-left font-medium ">EDIT</th>
+                    <th className="p-5 text-left font-medium ">DELETE</th>
                   </tr>
                 </thead>
                 <tbody>

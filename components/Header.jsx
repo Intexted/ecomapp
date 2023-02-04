@@ -44,7 +44,7 @@ function Header() {
       className="sticky top-0 bg-[#ffffffcc]"
       style={{ backdropFilter: 'saturate(180%) blur(5px)' }}
     >
-      <nav className="flex items-center px-4 justify-between h-14 shadow-md  ">
+      <nav className="flex items-center px-4 justify-between h-20 shadow-md  ">
         <div className="flex items-center gap-10">
           {router.asPath.includes('admin') && (
             <>
@@ -109,16 +109,16 @@ function Header() {
               <input
                 type="text"
                 placeholder="Search Here ..."
-                className="p-3 pl-5 h-7 w-48 border-0 focus:ring-0 dark:text-[#121212] text-sm rounded-lg bg-white"
+                className="p-3 pl-5 h-10 w-48 border-0 focus:ring-0 dark:text-[#121212] text-sm rounded-lg bg-white"
                 ref={searchInputRef}
               />
               <button
                 onClick={(e) => handleSearch(e)}
-                className="bg-amber-300 border rounded-full h-7 w-7 flex items-center justify-center btn"
+                className="bg-amber-300 border rounded-full h-10 w-10 flex items-center justify-center btn"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4   cursor-pointer  "
+                  className="h-5 w-5   cursor-pointer  "
                   fill="none"
                   viewBox="0 0 20 20"
                   stroke="#000"

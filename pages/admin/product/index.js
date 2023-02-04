@@ -29,6 +29,12 @@ function reducer(state, action) {
       return { ...state, loadingDelete: false, successDelete: true };
     case 'DELETE_FAIL':
       return { ...state, loadingDelete: false };
+    case 'CREATE_REQUEST':
+      return { ...state, loadingCreate: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loadingCreate: false };
+    case 'CREATE_FAIL':
+      return { ...state, loadingCreate: false };
 
     case 'UPLOAD_REQUEST':
       return { ...state, loadingUpload: true, errorUpload: '' };
@@ -44,12 +50,12 @@ function reducer(state, action) {
       return state;
   }
 }
-export default function AdminProductEditScreen() {
-  const { query } = useRouter();
-  const productId = query.id;
+export default function AdminProductCreateScreen() {
+  //   const { query } = useRouter();
+  //   const productId = query.id;
   const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
     useReducer(reducer, {
-      loading: true,
+      loading: false,
       error: '',
     });
 
@@ -58,18 +64,7 @@ export default function AdminProductEditScreen() {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm({
-    defaultValues: async () => {
-      try {
-        dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/admin/products/${productId}`);
-        dispatch({ type: 'FETCH_SUCCESS' });
-        return data;
-      } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
-      }
-    },
-  });
+  } = useForm();
 
   const router = useRouter();
 
@@ -108,8 +103,8 @@ export default function AdminProductEditScreen() {
     description,
   }) => {
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
-      await axios.put(`/api/admin/products/${productId}`, {
+      dispatch({ type: 'CREATE_REQUEST' });
+      await axios.post(`/api/admin/products`, {
         name,
         slug,
         price,
@@ -119,11 +114,11 @@ export default function AdminProductEditScreen() {
         countInStock,
         description,
       });
-      dispatch({ type: 'UPDATE_SUCCESS' });
-      toast.success('Product updated successfully');
+      dispatch({ type: 'CREATE_SUCCESS' });
+      toast.success('Product created successfully');
       router.push('/admin/products');
     } catch (err) {
-      dispatch({ type: 'UPDATE_FAIL', payload: getError(err) });
+      dispatch({ type: 'CREATE_FAIL', payload: getError(err) });
       toast.error(getError(err));
     }
   };
@@ -140,7 +135,7 @@ export default function AdminProductEditScreen() {
             <div className="alert-error">{error}</div>
           ) : (
             <form className="" onSubmit={handleSubmit(submitHandler)}>
-              <h1 className=" text-2xl font-medium">{`Edit Product ${productId}`}</h1>
+              <h1 className=" text-2xl font-medium">{`Create Productb`}</h1>
               <div className="my-4">
                 <label htmlFor="name">Name</label>
                 <input
@@ -297,7 +292,7 @@ export default function AdminProductEditScreen() {
                   disabled={loadingUpdate}
                   className="primary-button w-1/3 m-auto"
                 >
-                  {loadingUpdate ? 'Loading' : 'Update'}
+                  {loadingUpdate ? 'Loading' : 'Create'}
                 </button>
               </div>
             </form>
@@ -308,4 +303,4 @@ export default function AdminProductEditScreen() {
   );
 }
 
-AdminProductEditScreen.auth = { adminOnly: true };
+AdminProductCreateScreen.auth = { adminOnly: true };
