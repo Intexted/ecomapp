@@ -36,8 +36,8 @@ export default function ProductScreen(props) {
 
   return (
     <Layout title={product.name}>
-      <div className="grid md:grid-cols-4 md:gap-5">
-        <div className="md:col-span-2 ">
+      <div className="grid md:grid-cols-4 gap-5">
+        <div className="md:col-span-2 my-2 md:my-0">
           <Image
             src={product.image}
             alt={product.name}
@@ -47,21 +47,27 @@ export default function ProductScreen(props) {
             className="rounded-md shadow-md"
           ></Image>
         </div>
-        <div>
-          <ul className="mt-4 md:mt-0">
+        <div className="">
+          <ul className="mt-2 md:mt-0">
             <li className="mb-2">
-              <h1 className="text-lg font-bold">{product.name}</h1>
+              <h1 className="text-xl font-bold">{product.name}</h1>
             </li>
             <li className="mb-2">
-              <span className="text-gray-600 font-semibold">Category:</span>{' '}
+              <span className="text-gray-600 text-lg font-semibold">
+                Category:
+              </span>{' '}
               {product.category}
             </li>
             <li className="mb-2">
-              <span className="text-gray-600 font-semibold">Brand:</span>{' '}
+              <span className="text-gray-600 text-lg font-semibold">
+                Brand:
+              </span>{' '}
               {product.brand}
             </li>
             <li className="mb-2">
-              <span className="text-gray-600 font-semibold">Description:</span>{' '}
+              <span className="text-gray-600 text-lg font-semibold">
+                Description:
+              </span>{' '}
               {product.description}
             </li>
             <li className="mb-2">
@@ -69,6 +75,7 @@ export default function ProductScreen(props) {
             </li>
           </ul>
         </div>
+
         <div>
           <div className="card p-5">
             <div className="mb-2 flex justify-between">

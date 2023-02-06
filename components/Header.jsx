@@ -186,7 +186,10 @@ function Header() {
                   />
                 </svg>
               </Menu.Button>
-              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white border-2  shadow-lg ">
+              <Menu.Items
+                className="absolute right-0 mt-2 w-56 
+               origin-top-right bg-white border-2  shadow-lg "
+              >
                 <Menu.Item>
                   <DropdownLink className="dropdown-link" link="/profile">
                     Profile
