@@ -41,10 +41,10 @@ function Header() {
 
   return (
     <header
-      className="sticky top-0 bg-[#ffffffcc]"
+      className="sticky top-0 bg-[#ffffffcc] z-10"
       style={{ backdropFilter: 'saturate(180%) blur(5px)' }}
     >
-      <nav className="flex items-center px-4 justify-between h-20 shadow-md  ">
+      <nav className="flex items-center px-4 justify-between h-20 shadow-md ">
         <div className="flex items-center gap-10">
           {router.asPath.includes('admin') && (
             <>

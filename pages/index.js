@@ -33,7 +33,13 @@ export default function Home({ products, featuredProducts }) {
 
   return (
     <Layout title="Home Page">
-      <Carousel showThumbs={false} autoPlay>
+      <Carousel
+        infiniteLoop={true}
+        showThumbs={false}
+        autoPlay
+        interval={4000}
+        showStatus={false}
+      >
         {featuredProducts.map((product) => (
           <div key={product._id}>
             <Link href={`/product/${product.slug}`} passHref legacyBehavior>
@@ -44,7 +50,7 @@ export default function Home({ products, featuredProducts }) {
           </div>
         ))}
       </Carousel>
-      <h2 className="h2 my-4">Latest Products</h2>
+      <h2 className="h2 my-4 font-semibold">Latest Products</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductItem
